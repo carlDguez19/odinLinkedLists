@@ -1,4 +1,4 @@
-import Node from "./node";
+import { Node } from "./node";
 
 export class LinkedList {
     constructor() {
@@ -21,6 +21,7 @@ export class LinkedList {
             this.head = tempNode;
             this.tail = tempNode;
         }
+        this.head = tempNode;
     }
     size() {
         let currNode = new Node();
@@ -33,10 +34,16 @@ export class LinkedList {
         sizeN++;
         return sizeN;
     }
-    head() {
+    headFirst() {
+        if (this.head == null) {
+            return 'null';
+        }
         return this.head;
     }
-    tail() {
+    tailLast() {
+        if (this.tail == null) {
+            return 'null';
+        }
         return this.tail;
     }
     at(index) {
@@ -50,11 +57,16 @@ export class LinkedList {
             }
             currNode = currNode.next;
         }
+        return "invalid index";
     }
     pop() {
         let currNode = new Node();
         currNode = this.head;
-        if (this.head.next == null) {
+        if (this.head == null) {
+            console.log("cant pop already empty");
+            return;
+        }
+        else if (this.head.next == null) {
             this.head == null;
             this.tail == null;
         } else {
@@ -64,5 +76,38 @@ export class LinkedList {
             currNode.next = null;
             this.tail = currNode;
         }
+    }
+    contains(val) {
+        let currNode = new Node();
+        currNode = this.head;
+        while (currNode != null) {
+            if (currNode.value == val) {
+                return true;
+            }
+            currNode = currNode.next;
+        }
+        return false;
+    }
+    find(val) {
+        let currNode = new Node();
+        currNode = this.head;
+        let sizeN = 0;
+        while (currNode != null) {
+            sizeN++;
+            if (currNode.value == val) {
+                return sizeN;
+            }
+            currNode = currNode.next;
+        }
+        return null;
+    }
+    toString() {
+        let currNode = new Node();
+        currNode = this.head;
+        while (currNode != null) {
+            console.log(`( ${currNode.value} ) -> `);
+            currNode = currNode.next;
+        }
+        console.log('null');
     }
 }
